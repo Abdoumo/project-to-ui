@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile & Settings - Task Manager</title>
+  <link rel="stylesheet" href="../../styles/global.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">✓</div>
+        <h1 class="app-name">TaskFlow</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="../dashboard/index.html" class="nav-item">
+          <span class="icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="../task-list/index.html" class="nav-item">
+          <span class="icon">📝</span>
+          <span>All Tasks</span>
+        </a>
+        <a href="./index.html" class="nav-item active">
+          <span class="icon">⚙️</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar">👤</div>
+          <div class="user-info">
+            <p class="user-name" id="sidebarUserName">Alex Johnson</p>
+            <p class="user-email" id="sidebarUserEmail">alex@example.com</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="app-content">
+      <header class="app-header">
+        <h1>Profile & Settings</h1>
+      </header>
+
+      <div class="page-content">
+        <div class="settings-container">
+          <!-- Settings Navigation -->
+          <nav class="settings-nav">
+            <button class="settings-nav-item active" onclick="switchTab('profile')">Profile</button>
+            <button class="settings-nav-item" onclick="switchTab('preferences')">Preferences</button>
+            <button class="settings-nav-item" onclick="switchTab('notifications')">Notifications</button>
+          </nav>
+
+          <!-- Settings Content -->
+          <div class="settings-content">
+            <!-- Profile Tab -->
+            <section id="profileTab" class="settings-tab active">
+              <h2>Profile Information</h2>
+              
+              <div class="profile-avatar-section">
+                <div class="avatar-large" id="avatarDisplay">👤</div>
+                <div>
+                  <h3>Profile Picture</h3>
+                  <p>Choose an emoji to represent your profile</p>
+                  <div class="emoji-picker">
+                    <button class="emoji-btn" onclick="setAvatar('👤')">👤</button>
+                    <button class="emoji-btn" onclick="setAvatar('😊')">😊</button>
+                    <button class="emoji-btn" onclick="setAvatar('🙂')">🙂</button>
+                    <button class="emoji-btn" onclick="setAvatar('😎')">😎</button>
+                    <button class="emoji-btn" onclick="setAvatar('🤓')">🤓</button>
+                    <button class="emoji-btn" onclick="setAvatar('👨‍💼')">👨‍💼</button>
+                    <button class="emoji-btn" onclick="setAvatar('👩‍💼')">👩‍💼</button>
+                    <button class="emoji-btn" onclick="setAvatar('🧑‍💻')">🧑‍💻</button>
+                  </div>
+                </div>
+              </div>
+
+              <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                <div class="input-group">
+                  <label>Full Name</label>
+                  <input type="text" id="fullName" required>
+                </div>
+
+                <div class="input-group">
+                  <label>Email Address</label>
+                  <input type="email" id="emailAddress" required>
+                </div>
+
+                <div class="form-row">
+                  <div class="input-group">
+                    <label>Timezone</label>
+                    <select id="timezone">
+                      <option value="UTC-5">UTC-5 (Eastern)</option>
+                      <option value="UTC-6">UTC-6 (Central)</option>
+                      <option value="UTC-7">UTC-7 (Mountain)</option>
+                      <option value="UTC-8">UTC-8 (Pacific)</option>
+                      <option value="UTC">UTC (London)</option>
+                      <option value="UTC+1">UTC+1 (Central Europe)</option>
+                      <option value="UTC+8">UTC+8 (Singapore)</option>
+                      <option value="UTC+9">UTC+9 (Tokyo)</option>
+                      <option value="UTC+10">UTC+10 (Sydney)</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group">
+                    <label>Language</label>
+                    <select id="language">
+                      <option value="en">English</option>
+                      <option value="es">Spanish</option>
+                      <option value="fr">French</option>
+                      <option value="de">German</option>
+                      <option value="ja">Japanese</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Profile</button>
+              </form>
+            </section>
+
+            <!-- Preferences Tab -->
+            <section id="preferencesTab" class="settings-tab">
+              <h2>Preferences</h2>
+
+              <form id="preferencesForm" onsubmit="handlePreferencesUpdate(event)">
+                <div class="preference-item">
+                  <div>
+                    <h3>Theme</h3>
+                    <p>Choose your preferred color theme</p>
+                  </div>
+                  <select id="theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="auto">Auto</option>
+                  </select>
+                </div>
+
+                <div class="preference-item">
+                  <div>
+                    <h3>Task Sort Order</h3>
+                    <p>How tasks are ordered in lists</p>
+                  </div>
+                  <select id="sortOrder">
+                    <option value="due-date">Due Date</option>
+                    <option value="priority">Priority</option>
+                    <option value="created">Recently Created</option>
+                  </select>
+                </div>
+
+                <div class="preference-item">
+                  <div>
+                    <h3>Default Task Priority</h3>
+                    <p>Priority assigned to new tasks</p>
+                  </div>
+                  <select id="defaultPriority">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                  </select>
+                </div>
+
+                <div class="preference-item">
+                  <div>
+                    <h3>Show Completed Tasks</h3>
+                    <p>Display completed tasks in lists</p>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="showCompleted" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Preferences</button>
+              </form>
+            </section>
+
+            <!-- Notifications Tab -->
+            <section id="notificationsTab" class="settings-tab">
+              <h2>Notifications</h2>
+
+              <form id="notificationsForm" onsubmit="handleNotificationsUpdate(event)">
+                <div class="notification-item">
+                  <div>
+                    <h3>Email Notifications</h3>
+                    <p>Receive email updates about your tasks</p>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="emailNotifications" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="notification-item">
+                  <div>
+                    <h3>Task Reminders</h3>
+                    <p>Get reminded about upcoming due dates</p>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="taskReminders" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="notification-item">
+                  <div>
+                    <h3>Daily Summary</h3>
+                    <p>Receive a daily summary of your tasks</p>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="dailySummary" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="notification-item">
+                  <div>
+                    <h3>Browser Notifications</h3>
+                    <p>Show notifications in your browser</p>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="browserNotifications">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="input-group">
+                  <label>Reminder Time</label>
+                  <input type="time" id="reminderTime" value="09:00">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Notifications</button>
+              </form>
+            </section>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+          <h2>Danger Zone</h2>
+          <p>Irreversible actions</p>
+          
+          <div class="danger-item">
+            <div>
+              <h3>Export Data</h3>
+              <p>Download all your tasks as JSON</p>
+            </div>
+            <button class="btn btn-secondary" onclick="exportData()">Export</button>
+          </div>
+
+          <div class="danger-item">
+            <div>
+              <h3>Clear All Tasks</h3>
+              <p>Delete all tasks (cannot be undone)</p>
+            </div>
+            <button class="btn btn-danger" onclick="clearAllTasks()">Clear All</button>
+          </div>
+
+          <div class="danger-item">
+            <div>
+              <h3>Reset to Defaults</h3>
+              <p>Reset all settings to factory defaults</p>
+            </div>
+            <button class="btn btn-danger" onclick="resetToDefaults()">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar CSS -->
+  <link rel="stylesheet" href="../dashboard/style.css">
+  <script src="../../js/app.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
